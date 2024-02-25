@@ -1,0 +1,32 @@
+.header {
+  margin: 10px;
+  background-color: #fff;
+}
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+  padding: 0px 40px 0px 40px;
+}
+.collections {
+  display: flex;
+  justify-content: space-between;
+}
+.nav {
+  display: flex;
+}
+ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 20px;
+}
+li {
+  list-style-type: none;
+  padding: 0px 10px 0px 10px;
+}
+.card-user {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
