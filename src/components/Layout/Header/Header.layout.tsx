@@ -16,7 +16,7 @@ export const HeaderLayout = () => {
                   <li>Men</li>
                   <li>Women</li>
                   <li>About</li>
-                  <li>Contanc</li>
+                  <li>Contact</li>
                 </ul>
               </nav>
             </div>

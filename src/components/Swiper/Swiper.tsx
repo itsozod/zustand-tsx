@@ -16,8 +16,15 @@ import "swiper/css/mousewheel";
 export const SwiperContent = () => {
   return (
     <>
-      <div style={{ display: "flex", width: "500px" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          width: "400px",
+        }}
+      >
         <Swiper
+          style={{ borderRadius: "12px" }}
           modules={[Navigation, Pagination, Scrollbar, A11y, Mousewheel]}
           spaceBetween={50}
           slidesPerView={1}
