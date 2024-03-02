@@ -3,3 +3,8 @@
   margin: 0 auto;
   width: 100%;
 }
+.content_holder {
+  @media screen and (max-width: 838px) {
+    flex-direction: column;
+  }
+}

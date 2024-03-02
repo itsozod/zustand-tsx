@@ -7,7 +7,12 @@ export const Content = () => {
   return (
     <>
       <Flex className={styles.content_container}>
-        <Flex justify="space-around" align="center" style={{ width: "100%" }}>
+        <Flex
+          className={styles.content_holder}
+          justify="space-around"
+          align="center"
+          style={{ width: "100%" }}
+        >
           <SwiperContent />
           <ContentInfo />
         </Flex>

@@ -1,0 +1,14 @@
+.modal_container {
+  flex-direction: column;
+  position: absolute;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff;
+  padding: 20px;
+  right: 1rem;
+  width: 360px;
+  height: 256px;
+  z-index: 10;
+  box-shadow: 0 28px 38px -10px #00000040;
+}
