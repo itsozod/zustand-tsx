@@ -2,6 +2,7 @@
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  margin-top: 20px;
 }
 .content_holder {
   @media screen and (max-width: 838px) {
