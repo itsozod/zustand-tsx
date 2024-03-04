@@ -13,6 +13,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/mousewheel";
 import { Button, Flex, Input } from "antd";
+import { useCartStore } from "../../store";
 
 const product = [
   {
@@ -23,10 +24,13 @@ const product = [
       "image-product-3.jpg",
       "image-product-4.jpg",
     ],
+    img: "image-product-1.jpg",
+    title: "Fall Limited Edition Sneakers",
   },
 ];
 
 export const SwiperContent = () => {
+  const { addToCart } = useCartStore();
   return (
     <>
       <div
@@ -66,7 +70,7 @@ export const SwiperContent = () => {
             </div>
             <Flex className={styles.contentinfo_container}>
               <h2 style={{ color: "orange" }}>Sneaker company</h2>
-              <h1>Fall Limited Edition Sneakers</h1>
+              <h1>{product.title}</h1>
               <p>
                 These low-profile sneakers are your perfect casual wear
                 companion. Featuring a durable rubber outer soul, they'll
@@ -101,6 +105,7 @@ export const SwiperContent = () => {
                   </Button>
                 </Flex>
                 <Button
+                  onClick={() => addToCart(product)}
                   style={{
                     width: "100%",
                     background: "hsl(26, 100%, 55%)",

@@ -1,7 +1,10 @@
 import { Divider, Flex, Typography } from "antd";
 import styles from "./Modal.module.css";
+import { useCartStore } from "../../store";
 
 export const Modal = () => {
+  const { cart } = useCartStore();
+  console.log("Cart", cart);
   return (
     <>
       <div className={styles.modal_container}>
@@ -15,6 +18,9 @@ export const Modal = () => {
           }}
         >
           <h3>Your cart is empty</h3>
+          {cart?.map((cartItem) => {
+            return <h1>{cartItem.title}</h1>;
+          })}
         </Flex>
       </div>
     </>

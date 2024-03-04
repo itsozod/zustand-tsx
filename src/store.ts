@@ -1,16 +1,17 @@
 import { create } from "zustand";
-type Count = {
-  count: number;
-  increment: () => void;
-  value: string;
-  changeValue: (value: string) => void;
-  incByValue: (value: number) => void;
+type CartItem = {
+  id: number;
+  images: string[];
+  img: string;
+  title: string;
 };
 
-export const useCountStore = create<Count>()((set) => ({
-  count: 0,
-  value: "",
-  increment: () => set((state) => ({ count: state.count + 1 })),
-  incByValue: (value) => set((state) => ({ count: state.count + value })),
-  changeValue: (value) => set((state) => ({ value: (state.value = value) })),
+type Cart = {
+  cart: CartItem[];
+  addToCart: (value: CartItem) => void;
+};
+
+export const useCartStore = create<Cart>()((set) => ({
+  cart: [],
+  addToCart: (value) => set((state) => ({ cart: [...state.cart, value] })),
 }));
