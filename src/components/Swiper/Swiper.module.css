@@ -1,0 +1,15 @@
+.swiper_holder {
+  @media screen and (max-width: 838px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.contentinfo_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  width: 350px;
+}
