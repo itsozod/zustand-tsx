@@ -1,8 +1,7 @@
-// import { Button, Flex, Input } from "antd";
+import { Button, Flex, Input } from "antd";
 import { useCallback } from "react";
 import styles from "./Swiper.module.css";
 import useEmblaCarousel from "embla-carousel-react";
-import { Button, Flex, Input } from "antd";
 const images = [
   "image-product-1.jpg",
   "image-product-2.jpg",
@@ -31,14 +30,18 @@ export const SwiperContent = () => {
           width: "100%",
         }}
       >
-        <div style={{ width: "400px" }}>
-          <div className="embla" ref={emblaRef}>
+        <div style={{ width: "100%", maxWidth: "400px" }}>
+          <div
+            className={styles.embla}
+            ref={emblaRef}
+            style={{ borderRadius: "12px" }}
+          >
             {" "}
-            <div className="embla__container">
+            <div className={styles.embla__container}>
               {" "}
               {images.map((img, i) => {
                 return (
-                  <div key={i} className="embla__slide">
+                  <div key={i} className={styles.embla__slide}>
                     <img style={{ width: "100%" }} src={img} alt="" />
                   </div>
                 );
@@ -46,19 +49,19 @@ export const SwiperContent = () => {
             </div>{" "}
           </div>
 
-          <div className="embla-thumbs" style={{ width: "100%" }}>
+          <div className={styles.embla__thumbs}>
             {" "}
-            <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
-              <div
-                className="embla-thumbs__container"
-                style={{ display: "flex", width: "93px", gap: "10px" }}
-              >
+            <div
+              className={styles.embla__thumbs__viewport}
+              ref={emblaThumbsRef}
+            >
+              <div className={styles.embla__thumbs__container}>
                 {images.map((img, i) => {
                   return (
                     <div
                       onClick={() => onThumbClick(i)}
                       key={i}
-                      className="embla__slide"
+                      className={styles.embla__thumbs__slide}
                     >
                       <img style={{ width: "100%" }} src={img} alt="" />
                     </div>

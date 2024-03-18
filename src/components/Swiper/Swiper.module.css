@@ -13,3 +13,24 @@
   gap: 20px;
   width: 350px;
 }
+
+.embla {
+  overflow: hidden;
+}
+.embla__container {
+  display: flex;
+  gap: 10px;
+}
+.embla__slide {
+  flex: 0 0 100%;
+}
+.embla__thumbs {
+  overflow: hidden;
+}
+.embla__thumbs__container {
+  display: flex;
+  gap: 10px;
+}
+.embla__thumbs__slide {
+  flex: 0 0 93px;
+}
