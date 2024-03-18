@@ -40,7 +40,7 @@ export const Modal = () => {
               >
                 <img
                   style={{ width: "40px", height: "40px" }}
-                  src={cartItem.img}
+                  src={cartItem.images[0]}
                   alt={cartItem.title}
                 />
                 <div
