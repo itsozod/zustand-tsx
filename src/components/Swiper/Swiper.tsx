@@ -1,5 +1,5 @@
 import { Button, Flex, Input } from "antd";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./Swiper.module.css";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCartStore } from "../../store";
@@ -21,6 +21,7 @@ export const SwiperContent = () => {
   const { addToCart } = useCartStore();
   const [emblaRef, emblaRefApi] = useEmblaCarousel();
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel();
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const onThumbClick = useCallback(
     (index: number) => {
@@ -29,6 +30,19 @@ export const SwiperContent = () => {
     },
     [emblaRefApi, emblaThumbsApi]
   );
+
+  const onSelect = useCallback(() => {
+    if (!emblaRefApi || !emblaThumbsApi) return;
+    setSelectedIndex(emblaRefApi.selectedScrollSnap());
+    emblaThumbsApi.scrollTo(emblaRefApi.selectedScrollSnap());
+  }, [emblaRefApi, emblaThumbsApi, setSelectedIndex]);
+
+  useEffect(() => {
+    if (!emblaRefApi) return;
+    onSelect();
+    emblaRefApi.on("select", onSelect);
+    emblaRefApi.on("reInit", onSelect);
+  }, [emblaRefApi, onSelect]);
   return (
     <>
       <div
@@ -49,10 +63,16 @@ export const SwiperContent = () => {
                   style={{ borderRadius: "12px" }}
                 >
                   <div className={styles.embla__container}>
-                    {product.images.map((img, i) => {
+                    {product.images.map((imgs, i) => {
                       return (
                         <div key={i} className={styles.embla__slide}>
-                          <img style={{ width: "100%" }} src={img} alt="" />
+                          <img
+                            style={{
+                              width: "100%",
+                            }}
+                            src={imgs}
+                            alt=""
+                          />
                         </div>
                       );
                     })}
@@ -72,7 +92,19 @@ export const SwiperContent = () => {
                             key={i}
                             className={styles.embla__thumbs__slide}
                           >
-                            <img style={{ width: "100%" }} src={img} alt="" />
+                            <img
+                              style={{
+                                width: "100%",
+                                borderRadius: "12px",
+                                border:
+                                  i === selectedIndex
+                                    ? "2px solid orange"
+                                    : "none",
+                                opacity: i === selectedIndex ? "0.4" : "1",
+                              }}
+                              src={img}
+                              alt=""
+                            />
                           </div>
                         );
                       })}
