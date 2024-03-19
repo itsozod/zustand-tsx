@@ -2,7 +2,7 @@ import { Button, Flex, Input } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import styles from "./Swiper.module.css";
 import useEmblaCarousel from "embla-carousel-react";
-import { useCartStore } from "../../store";
+import { CartItem, useCartStore } from "../../store";
 
 const products = [
   {
@@ -18,10 +18,18 @@ const products = [
 ];
 
 export const SwiperContent = () => {
-  const { addToCart } = useCartStore();
+  const { addToCart, cart } = useCartStore();
   const [emblaRef, emblaRefApi] = useEmblaCarousel();
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel();
   const [selectedIndex, setSelectedIndex] = useState(0);
+  console.log("Cart", cart);
+
+  const handleCart = (product: CartItem) => {
+    const checkCart = cart.some((cartItem) => cartItem.id === product.id);
+    if (!checkCart) {
+      addToCart(product);
+    }
+  };
 
   const onThumbClick = useCallback(
     (index: number) => {
@@ -153,7 +161,7 @@ export const SwiperContent = () => {
                     </Button>
                   </Flex>
                   <Button
-                    onClick={() => addToCart(product)}
+                    onClick={() => handleCart(product)}
                     style={{
                       width: "100%",
                       background: "hsl(26, 100%, 55%)",
