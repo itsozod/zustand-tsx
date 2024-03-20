@@ -3,7 +3,7 @@ import styles from "./Modal.module.css";
 import { useCartStore } from "../../store";
 
 export const Modal = () => {
-  const { cart } = useCartStore();
+  const { cart, cartCount, cartCountResult } = useCartStore();
   console.log("Cart", cart);
   return (
     <>
@@ -53,7 +53,9 @@ export const Modal = () => {
                   <div style={{ height: 0, marginBottom: "20px" }}>
                     {cartItem.title}
                   </div>
-                  <div>$125.00 x 1 $125.00</div>
+                  <div>
+                    $125.00 x {cartCount} ${cartCountResult}
+                  </div>
                 </div>
               </div>
             );

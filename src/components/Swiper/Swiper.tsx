@@ -18,7 +18,10 @@ const products = [
 ];
 
 export const SwiperContent = () => {
-  const { addToCart, cart } = useCartStore();
+  const [count, setCount] = useState<string | number>("");
+
+  const { addToCart, cart, cartCount, setCartCount, setCartCountResult } =
+    useCartStore();
   const [emblaRef, emblaRefApi] = useEmblaCarousel();
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel();
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -26,8 +29,18 @@ export const SwiperContent = () => {
 
   const handleCart = (product: CartItem) => {
     const checkCart = cart.some((cartItem) => cartItem.id === product.id);
+    const cartCountValue = Number(count) + cartCount;
+    const cartCountResult = 125 * cartCountValue;
+    console.log(cartCountResult);
     if (!checkCart) {
+      setCartCount(cartCountValue);
       addToCart(product);
+      setCartCountResult(cartCountResult);
+      setCount("");
+    } else {
+      setCartCount(cartCountValue);
+      setCartCountResult(cartCountResult);
+      setCount("");
     }
   };
 
@@ -144,11 +157,17 @@ export const SwiperContent = () => {
                         background: "#f7f7f7",
                         color: "hsl(26, 100%, 55%)",
                       }}
+                      onClick={() => {
+                        if (Number(count) > 0) {
+                          setCount((prev) => Number(prev) - 1);
+                        }
+                      }}
                     >
                       -
                     </Button>
                     <Input
                       style={{ background: "#f7f7f7", textAlign: "center" }}
+                      value={count}
                       placeholder="0"
                     />
                     <Button
@@ -156,6 +175,7 @@ export const SwiperContent = () => {
                         background: "#f7f7f7",
                         color: "hsl(26, 100%, 55%)",
                       }}
+                      onClick={() => setCount((prev) => Number(prev) + 1)}
                     >
                       +
                     </Button>
