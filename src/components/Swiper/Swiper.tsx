@@ -163,7 +163,11 @@ export const SwiperContent = () => {
               <ProductInfo
                 product={product}
                 count={count}
-                onClickMinus={() => setCount((prev) => Number(prev) - 1)}
+                onClickMinus={() => {
+                  if (Number(count) > 0) {
+                    setCount((prev) => Number(prev) - 1);
+                  }
+                }}
                 onClickPlus={() => setCount((prev) => Number(prev) + 1)}
                 addProduct={() => handleCart(product)}
               />
