@@ -1,21 +1,43 @@
 .header {
   margin: 10px;
   background-color: #fff;
+  @media screen and (max-width: 761px) {
+    margin: 0;
+    position: sticky;
+    top: -8px;
+    z-index: 2;
+  }
 }
+.header_divider {
+  margin: 0;
+  @media screen and (max-width: 761px) {
+    display: none;
+  }
+}
+
 .header-container {
   max-width: 1200px;
   margin: 0 auto;
   height: 100%;
   padding: 0px 40px 0px 40px;
-  position: relative;
+  @media screen and (max-width: 761px) {
+    padding: 0px;
+  }
 }
 .collections {
   display: flex;
   justify-content: space-between;
 }
+.links_container {
+  @media screen and (max-width: 761px) {
+    display: none;
+  }
+}
 .nav {
   display: flex;
+  justify-content: start;
 }
+
 ul {
   display: flex;
   justify-content: center;
@@ -30,4 +52,5 @@ li {
   display: flex;
   align-items: center;
   gap: 20px;
+  position: relative;
 }

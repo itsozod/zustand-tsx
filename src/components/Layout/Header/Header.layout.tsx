@@ -2,11 +2,13 @@ import { Divider, Layout } from "antd";
 import styles from "./Header.layout.module.css";
 import { useEffect, useRef, useState } from "react";
 import { Modal } from "../../Modal/Modal";
+import { useCartStore } from "../../../store";
 
 export const HeaderLayout = () => {
   const { Header } = Layout;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+  const { cartCount } = useCartStore();
 
   const showModal = () => {
     setIsModalOpen((prev) => !prev);
@@ -33,8 +35,8 @@ export const HeaderLayout = () => {
         <div className={styles["header-container"]}>
           <div className={styles["collections"]}>
             <div className={styles["nav"]}>
-              <h1>sneakers</h1>
-              <nav>
+              <h1 className={styles.sneakers}>sneakers</h1>
+              <nav className={styles.links_container}>
                 <ul>
                   <li>Collections</li>
                   <li>Men</li>
@@ -61,9 +63,28 @@ export const HeaderLayout = () => {
 
               <img style={{ width: 40 }} src="image-avatar.png" alt="Avatar" />
               {isModalOpen ? <Modal /> : null}
+              {cartCount > 0 ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: "absolute",
+                    right: "50px",
+                    background: "hsl(26, 100%, 55%)",
+                    borderRadius: "12px",
+                    padding: "8px 8px 10px 8px",
+                    top: "8px",
+                    height: "12px",
+                    color: "#fff",
+                  }}
+                >
+                  {cartCount}
+                </div>
+              ) : null}
             </div>
           </div>
-          <Divider style={{ margin: 0 }} />
+          <Divider className={styles.header_divider} />
         </div>
       </Header>
     </>

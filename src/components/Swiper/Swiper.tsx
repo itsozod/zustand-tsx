@@ -1,8 +1,11 @@
-import { Button, Flex, Input } from "antd";
+import { Button } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import styles from "./Swiper.module.css";
 import useEmblaCarousel from "embla-carousel-react";
 import { CartItem, useCartStore } from "../../store";
+import { ArrowLeft } from "../../assets/icons/arrowLeft";
+import { ArrowRight } from "../../assets/icons/arrowRight";
+import { ProductInfo } from "../ProductInfo/ProductInfo";
 
 const products = [
   {
@@ -25,7 +28,6 @@ export const SwiperContent = () => {
   const [emblaRef, emblaRefApi] = useEmblaCarousel();
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel();
   const [selectedIndex, setSelectedIndex] = useState(0);
-  console.log("Cart", cart);
 
   const handleCart = (product: CartItem) => {
     const checkCart = cart.some((cartItem) => cartItem.id === product.id);
@@ -77,7 +79,12 @@ export const SwiperContent = () => {
         {products.map((product) => {
           return (
             <>
-              <div style={{ width: "100%", maxWidth: "400px" }}>
+              <div
+                style={{
+                  width: "100%",
+                  maxWidth: "400px",
+                }}
+              >
                 <div
                   className={styles.embla}
                   ref={emblaRef}
@@ -87,6 +94,24 @@ export const SwiperContent = () => {
                     {product.images.map((imgs, i) => {
                       return (
                         <div key={i} className={styles.embla__slide}>
+                          <div>
+                            <Button
+                              onClick={() => {
+                                emblaRefApi?.scrollPrev();
+                              }}
+                              className={styles.left_arrow}
+                            >
+                              <ArrowLeft />
+                            </Button>
+                            <Button
+                              onClick={() => {
+                                emblaRefApi?.scrollNext();
+                              }}
+                              className={styles.right_arrow}
+                            >
+                              <ArrowRight />
+                            </Button>
+                          </div>
                           <img
                             style={{
                               width: "100%",
@@ -135,63 +160,13 @@ export const SwiperContent = () => {
               </div>
 
               {/* product */}
-
-              <Flex className={styles.contentinfo_container}>
-                <h2 style={{ color: "orange" }}>Sneaker company</h2>
-                <h1>{product.title}</h1>
-                <h1>Fall Limited Sneakers</h1>
-                <p>
-                  These low-profile sneakers are your perfect casual wear
-                  companion. Featuring a durable rubber outer soul, they'll
-                  withstand everything the weather will offer.
-                </p>
-                <Flex gap={20}>
-                  <div>$125.00</div>
-                  <div>50%</div>
-                </Flex>
-                <p>$250.00</p>
-                <Flex gap={10}>
-                  <Flex>
-                    <Button
-                      style={{
-                        background: "#f7f7f7",
-                        color: "hsl(26, 100%, 55%)",
-                      }}
-                      onClick={() => {
-                        if (Number(count) > 0) {
-                          setCount((prev) => Number(prev) - 1);
-                        }
-                      }}
-                    >
-                      -
-                    </Button>
-                    <Input
-                      style={{ background: "#f7f7f7", textAlign: "center" }}
-                      value={count}
-                      placeholder="0"
-                    />
-                    <Button
-                      style={{
-                        background: "#f7f7f7",
-                        color: "hsl(26, 100%, 55%)",
-                      }}
-                      onClick={() => setCount((prev) => Number(prev) + 1)}
-                    >
-                      +
-                    </Button>
-                  </Flex>
-                  <Button
-                    onClick={() => handleCart(product)}
-                    style={{
-                      width: "100%",
-                      background: "hsl(26, 100%, 55%)",
-                      color: "#fff",
-                    }}
-                  >
-                    Add to cart
-                  </Button>
-                </Flex>
-              </Flex>
+              <ProductInfo
+                product={product}
+                count={count}
+                onClickMinus={() => setCount((prev) => Number(prev) - 1)}
+                onClickPlus={() => setCount((prev) => Number(prev) + 1)}
+                addProduct={() => handleCart(product)}
+              />
             </>
           );
         })}
