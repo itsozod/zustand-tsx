@@ -1,14 +1,19 @@
-import { Divider, Layout } from "antd";
+import { Button, Divider, Layout } from "antd";
 import styles from "./Header.layout.module.css";
 import { useEffect, useRef, useState } from "react";
 import { Modal } from "../../Modal/Modal";
 import { useCartStore } from "../../../store";
+import { useMediaQuery } from "@uidotdev/usehooks";
+import { MenuIcon } from "../../../assets/icons/menuIcon";
+import { DrawerContent } from "../../Drawer/Drawer";
 
 export const HeaderLayout = () => {
   const { Header } = Layout;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const { cartCount } = useCartStore();
+  const isSmallDevice = useMediaQuery("only screen and (max-width : 761px)");
+  const [drawer, setDrawer] = useState(false);
 
   const showModal = () => {
     setIsModalOpen((prev) => !prev);
@@ -35,6 +40,19 @@ export const HeaderLayout = () => {
         <div className={styles["header-container"]}>
           <div className={styles["collections"]}>
             <div className={styles["nav"]}>
+              {isSmallDevice ? (
+                <Button
+                  style={{
+                    marginTop: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                    border: "none",
+                  }}
+                  onClick={() => setDrawer(true)}
+                >
+                  <MenuIcon />
+                </Button>
+              ) : null}
               <h1 className={styles.sneakers}>sneakers</h1>
               <nav className={styles.links_container}>
                 <ul>
@@ -86,6 +104,7 @@ export const HeaderLayout = () => {
           </div>
           <Divider className={styles.header_divider} />
         </div>
+        <DrawerContent open={drawer} onClose={() => setDrawer(false)} />
       </Header>
     </>
   );

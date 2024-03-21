@@ -27,6 +27,8 @@
 .collections {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 .links_container {
   @media screen and (max-width: 761px) {
@@ -36,6 +38,8 @@
 .nav {
   display: flex;
   justify-content: start;
+  align-items: center;
+  gap: 10px;
 }
 
 ul {
@@ -53,4 +57,5 @@ li {
   align-items: center;
   gap: 20px;
   position: relative;
+  margin-left: auto;
 }
