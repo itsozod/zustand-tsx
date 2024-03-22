@@ -51,7 +51,7 @@ export const ProductInfo = ({
         >
           $250.00
         </p>
-        <Flex gap={10}>
+        <Flex gap={10} className={styles["buttons_container"]}>
           <Flex>
             <Button
               style={{

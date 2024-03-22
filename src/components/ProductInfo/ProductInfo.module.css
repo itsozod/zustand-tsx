@@ -5,4 +5,12 @@
   gap: 20px;
   width: 100%;
   max-width: 350px;
+  @media screen and (max-width: 450px) {
+    padding: 10px;
+  }
+}
+.buttons_container {
+  @media screen and (max-width: 461px) {
+    flex-direction: column;
+  }
 }

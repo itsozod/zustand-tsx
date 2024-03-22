@@ -1,10 +1,17 @@
-import { Divider, Flex, Typography } from "antd";
+import { Button, Divider, Flex, Typography } from "antd";
 import styles from "./Modal.module.css";
 import { useCartStore } from "../../store";
+import { DeleteIcon } from "../../assets/icons/deleteIcon";
 
 export const Modal = () => {
-  const { cart, cartCount, cartCountResult } = useCartStore();
-  console.log("Cart", cart);
+  const {
+    cart,
+    cartCount,
+    cartCountResult,
+    deleteFromCart,
+    setCartCount,
+    setCartCountResult,
+  } = useCartStore();
   return (
     <>
       <div className={styles.modal_container}>
@@ -12,28 +19,17 @@ export const Modal = () => {
         <Divider style={{ margin: 0 }}></Divider>
 
         {cart.length === 0 && (
-          <Flex
-            style={{ width: "100%", marginTop: "7px" }}
-            justify="center"
-            align="center"
-          >
+          <Flex style={{ marginTop: "7px" }} justify="center" align="center">
             <h3>Your cart is empty</h3>
           </Flex>
         )}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            marginTop: "7px",
-          }}
-        >
-          {cart?.map((cartItem) => {
-            return (
+        {cart?.map((cartItem) => {
+          return (
+            <div className={styles["cart_container"]}>
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "start",
+                  justifyContent: "center",
                   alignItems: "center",
                   gap: "10px",
                 }}
@@ -50,7 +46,13 @@ export const Modal = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <div style={{ height: 0, marginBottom: "20px" }}>
+                  <div
+                    style={{
+                      height: 0,
+                      marginBottom: "20px",
+                      fontWeight: "bold",
+                    }}
+                  >
                     {cartItem.title}
                   </div>
                   <div>
@@ -58,9 +60,33 @@ export const Modal = () => {
                   </div>
                 </div>
               </div>
-            );
-          })}
-        </div>
+              <Button
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  border: "none",
+                }}
+                onClick={() => {
+                  deleteFromCart(cartItem);
+                  setCartCount(0);
+                  setCartCountResult(0);
+                }}
+              >
+                <DeleteIcon />
+              </Button>
+            </div>
+          );
+        })}
+        {cart.length > 0 ? (
+          <Button
+            style={{
+              background: "hsl(26, 100%, 55%)",
+              color: "#fff",
+            }}
+          >
+            Cashout
+          </Button>
+        ) : null}
       </div>
     </>
   );

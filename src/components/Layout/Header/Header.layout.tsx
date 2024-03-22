@@ -4,18 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import { Modal } from "../../Modal/Modal";
 import { useCartStore } from "../../../store";
 import { useMediaQuery } from "@uidotdev/usehooks";
-import { MenuIcon } from "../../../assets/icons/menuIcon";
 import { DrawerContent } from "../../Drawer/Drawer";
+import { CartIcon } from "../../../assets/icons/cartIcon";
 
 export const HeaderLayout = () => {
   const { Header } = Layout;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
-  const { cartCount } = useCartStore();
+  const { cart, cartCount } = useCartStore();
   const isSmallDevice = useMediaQuery("only screen and (max-width : 761px)");
-  const [drawer, setDrawer] = useState(false);
 
-  const showModal = () => {
+  const handleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
 
@@ -40,19 +39,7 @@ export const HeaderLayout = () => {
         <div className={styles["header-container"]}>
           <div className={styles["collections"]}>
             <div className={styles["nav"]}>
-              {isSmallDevice ? (
-                <Button
-                  style={{
-                    marginTop: "8px",
-                    display: "flex",
-                    alignItems: "center",
-                    border: "none",
-                  }}
-                  onClick={() => setDrawer(true)}
-                >
-                  <MenuIcon />
-                </Button>
-              ) : null}
+              {isSmallDevice ? <DrawerContent /> : null}
               <h1 className={styles.sneakers}>sneakers</h1>
               <nav className={styles.links_container}>
                 <ul>
@@ -64,47 +51,35 @@ export const HeaderLayout = () => {
                 </ul>
               </nav>
             </div>
-            <div ref={modalRef} className={styles["card-user"]}>
-              <svg
-                onClick={() => showModal()}
-                style={{ cursor: "pointer" }}
-                width="22"
-                height="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M20.925 3.641H3.863L3.61.816A.896.896 0 0 0 2.717 0H.897a.896.896 0 1 0 0 1.792h1l1.031 11.483c.073.828.52 1.726 1.291 2.336C2.83 17.385 4.099 20 6.359 20c1.875 0 3.197-1.87 2.554-3.642h4.905c-.642 1.77.677 3.642 2.555 3.642a2.72 2.72 0 0 0 2.717-2.717 2.72 2.72 0 0 0-2.717-2.717H6.365c-.681 0-1.274-.41-1.53-1.009l14.321-.842a.896.896 0 0 0 .817-.677l1.821-7.283a.897.897 0 0 0-.87-1.114ZM6.358 18.208a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm10.015 0a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm2.021-7.243-13.8.81-.57-6.341h15.753l-1.383 5.53Z"
-                  fill="#69707D"
-                  fillRule="nonzero"
-                />
-              </svg>
-
-              <img style={{ width: 40 }} src="image-avatar.png" alt="Avatar" />
-              {isModalOpen ? <Modal /> : null}
-              {cartCount > 0 ? (
-                <div
+            <div ref={modalRef}>
+              <div ref={modalRef} className={styles["card-user"]}>
+                <Button
+                  onClick={() => handleModal()}
                   style={{
                     display: "flex",
-                    justifyContent: "center",
                     alignItems: "center",
-                    position: "absolute",
-                    right: "50px",
-                    background: "hsl(26, 100%, 55%)",
-                    borderRadius: "12px",
-                    padding: "8px 8px 10px 8px",
-                    top: "8px",
-                    height: "12px",
-                    color: "#fff",
+                    marginTop: "5px",
+                    border: "none",
                   }}
                 >
-                  {cartCount}
-                </div>
-              ) : null}
+                  <CartIcon />
+                </Button>
+
+                <img
+                  className={styles["avatar_img"]}
+                  src="image-avatar.png"
+                  alt="Avatar"
+                />
+
+                {cart.length > 0 ? (
+                  <div className={styles["cart_counter"]}>{cartCount}</div>
+                ) : null}
+              </div>
+              {isModalOpen ? <Modal /> : null}
             </div>
           </div>
           <Divider className={styles.header_divider} />
         </div>
-        <DrawerContent open={drawer} onClose={() => setDrawer(false)} />
       </Header>
     </>
   );

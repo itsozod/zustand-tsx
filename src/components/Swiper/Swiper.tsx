@@ -6,6 +6,7 @@ import { CartItem, useCartStore } from "../../store";
 import { ArrowLeft } from "../../assets/icons/arrowLeft";
 import { ArrowRight } from "../../assets/icons/arrowRight";
 import { ProductInfo } from "../ProductInfo/ProductInfo";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 const products = [
   {
@@ -28,12 +29,14 @@ export const SwiperContent = () => {
   const [emblaRef, emblaRefApi] = useEmblaCarousel();
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel();
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const isSmallDevice = useMediaQuery("only screen and (max-width : 761px)");
 
   const handleCart = (product: CartItem) => {
     const checkCart = cart.some((cartItem) => cartItem.id === product.id);
     const cartCountValue = Number(count) + cartCount;
     const cartCountResult = 125 * cartCountValue;
     console.log(cartCountResult);
+    if (!count) return;
     if (!checkCart) {
       setCartCount(cartCountValue);
       addToCart(product);
@@ -94,24 +97,27 @@ export const SwiperContent = () => {
                     {product.images.map((imgs, i) => {
                       return (
                         <div key={i} className={styles.embla__slide}>
-                          <div>
-                            <Button
-                              onClick={() => {
-                                emblaRefApi?.scrollPrev();
-                              }}
-                              className={styles.left_arrow}
-                            >
-                              <ArrowLeft />
-                            </Button>
-                            <Button
-                              onClick={() => {
-                                emblaRefApi?.scrollNext();
-                              }}
-                              className={styles.right_arrow}
-                            >
-                              <ArrowRight />
-                            </Button>
-                          </div>
+                          {isSmallDevice ? (
+                            <div>
+                              <Button
+                                onClick={() => {
+                                  emblaRefApi?.scrollPrev();
+                                }}
+                                className={styles.left_arrow}
+                              >
+                                <ArrowLeft />
+                              </Button>
+                              <Button
+                                onClick={() => {
+                                  emblaRefApi?.scrollNext();
+                                }}
+                                className={styles.right_arrow}
+                              >
+                                <ArrowRight />
+                              </Button>
+                            </div>
+                          ) : null}
+
                           <img
                             style={{
                               width: "100%",

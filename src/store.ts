@@ -12,6 +12,7 @@ type Cart = {
   setCartCountResult: (cartCountResult: number) => void;
   setCartCount: (cartCount: number) => void;
   addToCart: (value: CartItem) => void;
+  deleteFromCart: (value: CartItem) => void;
 };
 
 export const useCartStore = create<Cart>()((set) => ({
@@ -23,4 +24,8 @@ export const useCartStore = create<Cart>()((set) => ({
   setCartCount: (value) =>
     set((state) => ({ cartCount: (state.cartCount = value) })),
   addToCart: (value) => set((state) => ({ cart: [...state.cart, value] })),
+  deleteFromCart: (value) =>
+    set((state) => ({
+      cart: state.cart.filter((cartItem) => cartItem.id !== value.id),
+    })),
 }));

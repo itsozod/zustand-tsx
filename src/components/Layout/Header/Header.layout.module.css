@@ -7,6 +7,9 @@
     top: -8px;
     z-index: 2;
   }
+  @media screen and (max-width: 520px) {
+    padding: 0 10px;
+  }
 }
 .header_divider {
   margin: 0;
@@ -29,6 +32,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  position: relative;
 }
 .links_container {
   @media screen and (max-width: 761px) {
@@ -54,8 +58,34 @@ li {
 }
 .card-user {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 20px;
   position: relative;
-  margin-left: auto;
+}
+.avatar_img {
+  width: 40px;
+  height: auto;
+  object-fit: cover;
+  @media screen and (max-width: 520px) {
+    width: 30px;
+  }
+}
+.cart_counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 70px;
+  background: hsl(26, 100%, 55%);
+  border-radius: 12px;
+  padding: 8px 8px 10px 8px;
+  color: #fff;
+  top: 0px;
+  height: 5px;
+  @media screen and (max-width: 520px) {
+    right: 63px;
+    padding: 6px 6px 8px 6px;
+    top: 3px;
+  }
 }
