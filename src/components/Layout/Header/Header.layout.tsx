@@ -19,8 +19,8 @@ export const HeaderLayout = () => {
   };
 
   useEffect(() => {
-    const handleModal = (e) => {
-      if (modalRef.current && !modalRef.current.contains(e.target)) {
+    const handleModal = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
         setIsModalOpen(false);
         console.log(modalRef.current);
       }
