@@ -5,6 +5,7 @@
   margin-top: 20px;
 }
 .content_holder {
+  margin-top: 50px;
   @media screen and (max-width: 838px) {
     flex-direction: column;
   }

@@ -17,7 +17,7 @@ const products = [
       "image-product-3.jpg",
       "image-product-4.jpg",
     ],
-    title: "Fall Limited Sneakers",
+    title: "Fall Edition Limited Sneakers",
   },
 ];
 
@@ -75,7 +75,7 @@ export const SwiperContent = () => {
         className={styles.swiper_holder}
         style={{
           display: "flex",
-          justifyContent: "space-around",
+          justifyContent: "space-evenly",
           width: "100%",
         }}
       >
@@ -85,7 +85,7 @@ export const SwiperContent = () => {
               <div
                 style={{
                   width: "100%",
-                  maxWidth: "400px",
+                  maxWidth: "350px",
                 }}
               >
                 <div
