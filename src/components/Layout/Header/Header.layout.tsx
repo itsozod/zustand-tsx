@@ -67,7 +67,7 @@ export const HeaderLayout = () => {
 
                 <img
                   className={styles["avatar_img"]}
-                  src="image-avatar.png"
+                  src="./image-avatar.png"
                   alt="Avatar"
                 />
 
